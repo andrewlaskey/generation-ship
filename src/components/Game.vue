@@ -203,6 +203,8 @@ export default {
     handleTree(neighbors) {
       const treesCount = this.countNeighbors(neighbors, ['t', 'T'])
       const peopleCount = this.countNeighbors(neighbors, ['h', 'V', 'C'])
+      const highPopCount = this.countNeighbors(neighbors, ['V', 'C'])
+      const cityCount = this.countNeighbors(neighbors, ['C'])
 
       if (treesCount >= 5) {
         return '.'
@@ -213,6 +215,10 @@ export default {
       }
 
       if (treesCount === 0 || peopleCount >= 5) {
+        return '.'
+      }
+
+      if (highPopCount >= 4 || cityCount >= 3) {
         return '.'
       }
 
@@ -302,7 +308,12 @@ export default {
         return 'h'
       }
 
-      if (farmCount >= 2 && powerCount >= 1 && peopleCount >= 2) {
+      if (
+        farmCount >= 2 &&
+        powerCount >= 1 &&
+        peopleCount >= 2 &&
+        treesCount >= 2
+      ) {
         return 'C'
       }
 
@@ -318,7 +329,12 @@ export default {
         return '.'
       }
 
-      if (farmCount < 2 || powerCount < 1 || peopleCount < 2) {
+      if (
+        farmCount < 2 ||
+        powerCount < 1 ||
+        peopleCount < 2 ||
+        treesCount < 2
+      ) {
         return 'V'
       }
 
