@@ -39,6 +39,7 @@
   </div>
   <div class="modal" v-if="gameOver">
     <p>{{ gameOverMessage }}</p>
+    <p><small>Reload page to play again</small></p>
   </div>
 </template>
 
@@ -407,19 +408,19 @@ export default {
       return count
     },
     checkGameConditions() {
-      if (this.population === 0) {
+      if (this.population <= 0) {
         this.gameOver = true
         this.gameOverMessage =
           'Everyone died. Your crewless vessel drifts alone in space for eternity.'
       }
 
-      if (this.ecology === 0) {
+      if (this.ecology <= 0) {
         this.gameOver = true
         this.gameOverMessage =
           'All plant and animal life has perished. Lack of oxygen will kill everything on board.'
       }
 
-      if (this.year === 0) {
+      if (this.years <= 0) {
         this.gameOver = true
         this.gameOverMessage = `You have made it to your destination star with ${this.population} people and an ecology index of ${this.ecology}.`
       }
