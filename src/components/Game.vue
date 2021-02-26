@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" :style="wrapperGridStyle">
     <div
       v-for="(gridItem, index) in grid"
       :key="index"
@@ -44,22 +44,33 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref, toRefs, watch } from 'vue'
 import GridItem from './GridItem.vue'
 import { getRandomType } from '../utils/helpers'
 
 export default {
   components: { GridItem },
-  setup() {
-    const size = ref(8)
-    const grid = ref([])
+  props: {
+    size: {
+      type: Number,
+      default: 8,
+    },
+    startYears: {
+      type: Number,
+      default: 50,
+    },
+  },
+  setup(props) {
+    const { size, startYears } = toRefs(props)
+
+    let grid = ref([])
     const selectedType = ref('t')
     const selectedOption = ref(-1)
     const options = ref(['h', 'F', 't', 't'])
     const played = ref(false)
-    const years = ref(50)
     const gameOver = ref(false)
     const gameOverMessage = ref('')
+    const years = ref(startYears)
 
     const population = computed(() => {
       return grid.value.reduce((total, item) => {
@@ -93,12 +104,24 @@ export default {
       }, 0)
     })
 
-    for (let index = 0; index < size.value * size.value; index++) {
-      grid.value.push('.')
+    const wrapperGridStyle = computed(() => {
+      return {
+        'grid-template-columns': `repeat(${size.value}, 1fr)`,
+        'grid-template-rows': `1fr`,
+      }
+    })
+
+    const setupGrid = () => {
+      grid.value = []
+      for (let index = 0; index < size.value * size.value; index++) {
+        grid.value.push('.')
+      }
     }
 
+    onMounted(setupGrid)
+    watch(size, setupGrid)
+
     return {
-      size,
       grid,
       selectedType,
       options,
@@ -106,9 +129,10 @@ export default {
       played,
       population,
       ecology,
-      years,
       gameOver,
       gameOverMessage,
+      years,
+      wrapperGridStyle,
     }
   },
   methods: {
@@ -265,6 +289,7 @@ export default {
       const peopleCount = this.countNeighbors(neighbors, ['h', 'V', 'C'])
       const highPopCount = this.countNeighbors(neighbors, ['V', 'C'])
       const powerCount = this.countNeighbors(neighbors, ['P'])
+      const cityCount = this.countNeighbors(neighbors, ['C'])
 
       // Needs people to maintain
       if (peopleCount < 1) {
@@ -277,7 +302,7 @@ export default {
       }
 
       // Overuse kills it
-      if (peopleCount >= 5 || highPopCount >= 4) {
+      if (peopleCount >= 6 || highPopCount >= 5 || cityCount >= 4) {
         return '.'
       }
 
@@ -300,6 +325,7 @@ export default {
     },
     handleVillage(neighbors) {
       const treesCount = this.countNeighbors(neighbors, ['t', 'T'])
+      const bigTreesCount = this.countNeighbors(neighbors, ['T'])
       const farmCount = this.countNeighbors(neighbors, ['F'])
       const powerCount = this.countNeighbors(neighbors, ['P'])
       const peopleCount = this.countNeighbors(neighbors, ['h', 'V', 'C'])
@@ -312,7 +338,7 @@ export default {
         farmCount >= 2 &&
         powerCount >= 1 &&
         peopleCount >= 2 &&
-        treesCount >= 2
+        (treesCount >= 2 || bigTreesCount >= 1)
       ) {
         return 'C'
       }
@@ -321,6 +347,7 @@ export default {
     },
     handleCity(neighbors) {
       const treesCount = this.countNeighbors(neighbors, ['t', 'T'])
+      const bigTreesCount = this.countNeighbors(neighbors, ['T'])
       const farmCount = this.countNeighbors(neighbors, ['F'])
       const powerCount = this.countNeighbors(neighbors, ['P'])
       const peopleCount = this.countNeighbors(neighbors, ['h', 'V', 'C'])
@@ -333,7 +360,8 @@ export default {
         farmCount < 2 ||
         powerCount < 1 ||
         peopleCount < 2 ||
-        treesCount < 2
+        treesCount < 2 ||
+        bigTreesCount < 1
       ) {
         return 'V'
       }
@@ -452,8 +480,6 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 50px);
   padding-bottom: 1rem;
 
   div {
@@ -464,6 +490,14 @@ export default {
     height: 100%;
     text-align: center;
     border: 1px dashed rgba($color: #c7c7c7, $alpha: 1);
+
+    ::before {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 0;
+      padding-bottom: 100%;
+    }
   }
 }
 
