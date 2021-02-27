@@ -2,6 +2,13 @@
   <div class="info-panel">
     <button @click="() => (show = !show)">ℹ️</button>
     <div class="info-body" v-if="show">
+      <p>
+        In order to expand humanity across the galaxy, we built generation
+        ships. Without faster-than-light engines it will take hundreds possibly
+        thousands of years to reach our future home. Generations of humans will
+        live out their lives in this pocket ecosystem as it travels through the
+        vastness of space.
+      </p>
       <dl>
         <dt>🌱</dt>
         <dd>
@@ -45,7 +52,7 @@ export default {
 
 <style lang="scss" scoped>
 .info-panel {
-  position: fixed;
+  position: absolute;
   top: 10px;
   right: 10px;
 
@@ -58,7 +65,8 @@ export default {
 
 .info-body {
   padding: 2rem 1rem;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.95);
   max-width: 300px;
+  overflow: scroll;
 }
 </style>

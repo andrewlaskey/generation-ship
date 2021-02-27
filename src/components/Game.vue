@@ -70,7 +70,7 @@ export default {
     const played = ref(false)
     const gameOver = ref(false)
     const gameOverMessage = ref('')
-    const years = ref(startYears)
+    const years = ref(50)
 
     const population = computed(() => {
       return grid.value.reduce((total, item) => {
@@ -118,8 +118,16 @@ export default {
       }
     }
 
-    onMounted(setupGrid)
+    const setStartYears = () => {
+      years.value = startYears.value
+    }
+
+    onMounted(() => {
+      setupGrid()
+      setStartYears()
+    })
     watch(size, setupGrid)
+    watch(startYears, setStartYears)
 
     return {
       grid,

@@ -3,7 +3,10 @@
     <p>Choose your journey</p>
     <div>
       <label>Ship size:</label>
-      <select v-model="gridSize">
+      <select
+        :value="gridSize"
+        @input="$emit('update:gridSize', parseInt($event.target.value, 10))"
+      >
         <option v-for="size in sizeOptions" :value="size" :key="size">{{
           size
         }}</option>
@@ -11,13 +14,15 @@
     </div>
     <div>
       <label>Destination:</label>
-      <select v-model="lightyears">
+      <select
+        :value="lightyears"
+        @input="$emit('update:lightyears', parseInt($event.target.value, 10))"
+      >
         <option v-for="years in destinationOptions" :value="years" :key="years"
           >{{ years }} light years</option
         >
       </select>
     </div>
-    <button @click="finishSelect(gridSize, lightyears)">Launch</button>
   </div>
 </template>
 
@@ -25,6 +30,14 @@
 import { ref } from 'vue'
 export default {
   props: {
+    gridSize: {
+      type: Number,
+      default: 8,
+    },
+    lightyears: {
+      type: Number,
+      default: 50,
+    },
     finishSelect: {
       type: Function,
       default: () => {
@@ -32,21 +45,17 @@ export default {
       },
     },
   },
+  emits: ['update:gridSize', 'update:lightyears'],
   setup() {
     const sizeOptions = ref([3, 5, 8, 12])
-    const gridSize = ref(8)
-
     const destinationOptions = ref([10, 25, 50, 100])
-    const lightyears = ref(50)
 
     return {
       sizeOptions,
-      gridSize,
       destinationOptions,
-      lightyears,
     }
   },
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
