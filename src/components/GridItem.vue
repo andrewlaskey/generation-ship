@@ -10,18 +10,18 @@ export default {
   props: {
     index: {
       type: Number,
-      default: 0
+      default: 0,
     },
     grid: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   setup(props) {
     const { grid, index } = toRefs(props)
 
     const type = computed(() => {
-      switch(grid.value[index.value]) {
+      switch (grid.value[index.value]) {
         case 't':
           return '🌱'
         case 'T':
@@ -42,14 +42,15 @@ export default {
     })
 
     return {
-      type
+      type,
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 span {
-  font-size: 24px;
+  font-size: 32px;
+  // transform: rotateZ(45deg) skew(5deg, 0deg);
 }
 </style>

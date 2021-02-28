@@ -1,12 +1,14 @@
 <template>
-  <div class="wrapper" :style="wrapperGridStyle">
-    <div
-      v-for="(gridItem, index) in grid"
-      :key="index"
-      @mouseenter="(e) => checkPlacement(e.currentTarget, gridItem, index)"
-      @mouseleave="onMouseLeave"
-    >
-      <grid-item :index="index" :grid="grid" @click="clickGridItem(index)" />
+  <div class="perspective">
+    <div class="wrapper" :style="wrapperGridStyle">
+      <div
+        v-for="(gridItem, index) in grid"
+        :key="index"
+        @mouseenter="(e) => checkPlacement(e.currentTarget, gridItem, index)"
+        @mouseleave="onMouseLeave"
+      >
+        <grid-item :index="index" :grid="grid" @click="clickGridItem(index)" />
+      </div>
     </div>
   </div>
   <div class="actions">
@@ -30,16 +32,18 @@
     </div>
   </div>
   <div>
-    <span>Population: {{ population }}</span
+    <span><strong>Population:</strong> {{ population }}</span
     ><br />
-    <span>Ecology: {{ ecology }}</span
+    <span><strong>Ecology:</strong> {{ ecology }}</span
     ><br />
-    <span>Years to destination planet: {{ years }}</span
+    <span
+      ><strong>Distance to {{ destination.name }}:</strong>
+      {{ years }} light-years</span
     ><br />
   </div>
   <div class="modal" v-if="gameOver">
     <p>{{ gameOverMessage }}</p>
-    <p>Total Points: {{ points }}</p>
+    <p><strong>Total Points:</strong> {{ points }}</p>
     <p><small>Reload page to play again</small></p>
   </div>
 </template>
@@ -56,13 +60,16 @@ export default {
       type: Number,
       default: 8,
     },
-    startYears: {
-      type: Number,
-      default: 50,
+    destination: {
+      type: Object,
+      default: () => ({
+        name: 'default',
+        years: 50,
+      }),
     },
   },
   setup(props) {
-    const { size, startYears } = toRefs(props)
+    const { size, destination } = toRefs(props)
 
     let grid = ref([])
     const selectedType = ref('t')
@@ -136,7 +143,7 @@ export default {
     }
 
     const setStartYears = () => {
-      years.value = startYears.value
+      years.value = destination.value.years
     }
 
     onMounted(() => {
@@ -144,7 +151,7 @@ export default {
       setStartYears()
     })
     watch(size, setupGrid)
-    watch(startYears, setStartYears)
+    watch(destination, setStartYears)
 
     return {
       grid,
@@ -504,9 +511,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.perspective {
+  // perspective: 300px;
+}
+
 .wrapper {
   display: grid;
   padding-bottom: 1rem;
+  // transform: rotateZ(-60deg) skewY(30deg);
 
   div {
     display: flex;
@@ -539,13 +551,19 @@ button {
   padding-left: 10px;
   padding-right: 10px;
   height: 2rem;
-  background-color: white;
-  border: 2px solid rgba($color: #d4d4d4, $alpha: 1);
-  border-radius: 0;
+  background-color: #f1f0ed;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
 
   &.selected {
-    border-color: rgb(130, 158, 243);
-    background-color: rgba(179, 194, 240, 0.699);
+    background-color: #f2a154;
+  }
+
+  &.selected,
+  &:focus,
+  &:active {
+    outline: none;
   }
 
   &:last-child {

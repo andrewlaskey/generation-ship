@@ -1,20 +1,20 @@
 <template>
   <h1>Generation Ship</h1>
   <p>
-    Keep the ship alive until you reach the destination planet 50 light years
-    away
+    Keep the ship alive until you reach the destination planet.
   </p>
   <div class="game-view">
+    <game :size="gridSize" :destination="selectedDestination" />
     <div class="game-options" v-if="!showGame">
       <game-select
         :grid-size="gridSize"
         @update:grid-size="gridSize = $event"
-        :lightyears="years"
-        @update:lightyears="years = $event"
+        :destinations="destinations"
+        :destination="selectedDestination.years"
+        @update:destination="updateDestination"
       />
       <button @click="showGame = true">Launch</button>
     </div>
-    <game :size="gridSize" :start-years="years" />
   </div>
   <info />
 </template>
@@ -33,11 +33,41 @@ export default {
     GameSelect,
   },
   setup() {
-    const gridSize = ref(5)
+    const gridSize = ref(8)
     const years = ref(50)
     const showGame = ref(false)
+    const destinations = ref([
+      {
+        name: 'Ross 128b',
+        years: 10,
+      },
+      {
+        name: 'Gliese 667 C',
+        years: 25,
+      },
+      {
+        name: 'Gliese 163 c',
+        years: 50,
+      },
+      {
+        name: 'TOI 700d',
+        years: 100,
+      },
+      {
+        name: 'K2-72e',
+        years: 200,
+      },
+      {
+        name: 'Kepler-1649c',
+        years: 300,
+      },
+    ])
+    const selectedDestination = ref({
+      name: 'Gliese 163 c',
+      years: 50,
+    })
 
-    return { gridSize, years, showGame }
+    return { gridSize, years, showGame, destinations, selectedDestination }
   },
   methods: {
     finishSelect(sizeSelect, yearsSelect) {
@@ -45,21 +75,30 @@ export default {
       this.years = yearsSelect
       this.showGame = true
     },
+    updateDestination(event) {
+      this.selectedDestination = this.destinations.find(
+        (option) => option.years === event
+      )
+    },
   },
 }
 </script>
 
 <style lang="scss">
+body {
+  background: #172122;
+}
+
 #app {
   box-sizing: border-box;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #e7e6e1;
   margin: 10px auto 0;
   padding: 1rem;
   width: 100%;
-  max-width: 400px;
+  max-width: 460px;
 }
 
 .game-view {
@@ -73,17 +112,21 @@ export default {
   left: 2em;
   padding: 1em;
   width: calc(100% - 4em);
-  background: rgba(#ffffff, 0.8);
-  border: 2px solid rgba($color: #d4d4d4, $alpha: 1);
+  background: rgba(#e7f7e9, 0.95);
+  color: #314e52;
+  border: 2px solid rgba($color: #62959c, $alpha: 1);
+  border-radius: 3px;
 
   button {
     margin-top: 2rem;
     padding-left: 10px;
     padding-right: 10px;
     height: 2rem;
-    background-color: white;
-    border: 2px solid rgba($color: #d4d4d4, $alpha: 1);
-    border-radius: 0;
+    color: white;
+    background-color: #62959c;
+    border: 2px solid rgba($color: #62959c, $alpha: 1);
+    border-radius: 3px;
+    font-weight: bold;
   }
 }
 </style>

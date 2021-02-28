@@ -65,7 +65,8 @@ export default {
 
 .info-body {
   padding: 2rem 1rem;
-  background-color: rgba(255, 255, 255, 0.95);
+  background: rgba(#e7f7e9, 0.95);
+  color: #314e52;
   max-width: 300px;
   overflow: scroll;
 }
