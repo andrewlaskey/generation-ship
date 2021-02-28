@@ -39,6 +39,7 @@
   </div>
   <div class="modal" v-if="gameOver">
     <p>{{ gameOverMessage }}</p>
+    <p>Total Points: {{ points }}</p>
     <p><small>Reload page to play again</small></p>
   </div>
 </template>
@@ -111,6 +112,22 @@ export default {
       }
     })
 
+    const points = computed(() => {
+      const pop = population.value * 100
+      const eco = ecology.value * 100
+      const ratio = Math.round((ecology.value / (population.value || 1)) * 100)
+
+      const other = grid.value.reduce((total, item) => {
+        if (item === 'F' || item === 'P') {
+          total += 25
+        }
+
+        return total
+      }, 0)
+
+      return pop + eco + ratio + other
+    })
+
     const setupGrid = () => {
       grid.value = []
       for (let index = 0; index < size.value * size.value; index++) {
@@ -141,6 +158,7 @@ export default {
       gameOverMessage,
       years,
       wrapperGridStyle,
+      points,
     }
   },
   methods: {
