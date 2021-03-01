@@ -60,6 +60,9 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
+    background: none;
+    border: none;
+    outline: none;
   }
 }
 

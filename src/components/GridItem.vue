@@ -50,7 +50,10 @@ export default {
 
 <style lang="scss" scoped>
 span {
-  font-size: 32px;
-  // transform: rotateZ(45deg) skew(5deg, 0deg);
+  font-size: 24px;
+  // For future isometric view
+  // position: absolute;
+  // height: 60px;
+  // transform: rotateX(0deg) rotateZ(-45deg) translateY(-12px);
 }
 </style>

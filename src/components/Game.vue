@@ -511,14 +511,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.perspective {
-  // perspective: 300px;
-}
+// .perspective {
+//   // perspective: 1200px;
+// }
 
 .wrapper {
   display: grid;
   padding-bottom: 1rem;
-  // transform: rotateZ(-60deg) skewY(30deg);
+  // For future isometric
+  // transform: rotateX(55deg) rotateZ(45deg);
+  // transform-style: preserve-3d;
 
   div {
     display: flex;
