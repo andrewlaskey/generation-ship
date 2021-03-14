@@ -54,4 +54,10 @@ export default {
   transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-8px)
     translateZ(8px);
 }
+
+.explore .grid-item .city {
+  height: 90px;
+  transform: rotateX(315deg) rotate(323deg) rotateY(31deg) translateY(-35px)
+    translateZ(8px);
+}
 </style>
