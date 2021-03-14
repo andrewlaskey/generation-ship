@@ -38,6 +38,11 @@
           drained by overuse.
         </p>
       </div>
+      <p>
+        <a href="https://kgmpers.itch.io/generation-ship/donate" target="_blank"
+          >Support development of this game on itch.io</a
+        >
+      </p>
     </div>
   </div>
 </template>
