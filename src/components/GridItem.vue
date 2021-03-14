@@ -1,12 +1,12 @@
 <template>
   <div class="grid-item">
-    <img v-if="type === 't'" src="../assets/tree.png" class="tree" />
-    <img v-if="type === 'T'" src="../assets/trees.png" class="trees" />
-    <img v-if="type === 'F'" src="../assets/farm.png" class="farm" />
-    <img v-if="type === 'P'" src="../assets/power.png" class="power" />
-    <img v-if="type === 'h'" src="../assets/house.png" class="house" />
-    <img v-if="type === 'V'" src="../assets/town.png" class="village" />
-    <img v-if="type === 'C'" src="../assets/city.png" class="city" />
+    <img v-if="type === 't'" src="images/tree.png" class="tree" />
+    <img v-if="type === 'T'" src="images/trees.png" class="trees" />
+    <img v-if="type === 'F'" src="images/farm.png" class="farm" />
+    <img v-if="type === 'P'" src="images/power.png" class="power" />
+    <img v-if="type === 'h'" src="images/house.png" class="house" />
+    <img v-if="type === 'V'" src="images/town.png" class="village" />
+    <img v-if="type === 'C'" src="images/city.png" class="city" />
   </div>
 </template>
 

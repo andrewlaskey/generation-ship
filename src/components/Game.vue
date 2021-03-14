@@ -25,16 +25,16 @@
         :disabled="gameOver"
         @click="selectType(option, i)"
       >
-        <img v-if="option === 't'" src="../assets/tree.png" />
-        <img v-if="option === 'h'" src="../assets/house.png" />
-        <img v-if="option === 'P'" src="../assets/power.png" />
-        <img v-if="option === 'F'" src="../assets/farm.png" />
+        <img v-if="option === 't'" src="images/tree.png" />
+        <img v-if="option === 'h'" src="images/house.png" />
+        <img v-if="option === 'P'" src="images/power.png" />
+        <img v-if="option === 'F'" src="images/farm.png" />
       </button>
     </div>
     <div>
       <button @click="next" :disabled="!played || gameOver">Next</button>
       <button @click="explore = !explore">
-        <img src="../assets/3d_rotation.svg" />
+        <img src="images/3d_rotation.svg" />
       </button>
     </div>
   </div>

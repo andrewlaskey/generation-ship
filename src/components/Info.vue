@@ -10,7 +10,7 @@
         vastness of space.
       </p>
       <div class="info-section">
-        <img src="../assets/tree.png" />
+        <img src="images/tree.png" />
         <p>
           Trees grow on their own but are sensitive to overpopulation.<br />Grow
           trees to increase the ecological health of the ship. You'll need
@@ -18,7 +18,7 @@
         </p>
       </div>
       <div class="info-section">
-        <img src="../assets/house.png" />
+        <img src="images/house.png" />
         <p>
           People need farms for food and trees for oxygen. Bigger settlements
           need power.<br />Maintain the human population for the 50 light year
@@ -26,13 +26,13 @@
         </p>
       </div>
       <div class="info-section">
-        <img src="../assets/farm.png" />
+        <img src="images/farm.png" />
         <p>
           Farms can be ruined by wild overgrowth and overconsumption by people.
         </p>
       </div>
       <div class="info-section">
-        <img src="../assets/power.png" />
+        <img src="images/power.png" />
         <p>
           Power stations can be overloaded by too many nearby power stations or
           drained by overuse.
