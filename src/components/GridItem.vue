@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <span>{{ type }}</span>
+  <div class="grid-item">
+    <img v-if="type === 't'" src="../assets/tree.png" class="tree" />
+    <img v-if="type === 'T'" src="../assets/trees.png" class="trees" />
+    <img v-if="type === 'F'" src="../assets/farm.png" class="farm" />
+    <img v-if="type === 'P'" src="../assets/power.png" class="power" />
+    <img v-if="type === 'h'" src="../assets/house.png" class="house" />
+    <img v-if="type === 'V'" src="../assets/town.png" class="village" />
+    <img v-if="type === 'C'" src="../assets/city.png" class="city" />
   </div>
 </template>
 
@@ -20,26 +26,7 @@ export default {
   setup(props) {
     const { grid, index } = toRefs(props)
 
-    const type = computed(() => {
-      switch (grid.value[index.value]) {
-        case 't':
-          return '🌱'
-        case 'T':
-          return '🌳'
-        case 'h':
-          return '🏠'
-        case 'V':
-          return '🏘'
-        case 'C':
-          return '🏬'
-        case 'P':
-          return '🔋'
-        case 'F':
-          return '🌾'
-        default:
-          return ' '
-      }
-    })
+    const type = computed(() => grid.value[index.value])
 
     return {
       type,
@@ -48,12 +35,23 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-span {
-  font-size: 24px;
-  // For future isometric view
-  // position: absolute;
-  // height: 60px;
-  // transform: rotateX(0deg) rotateZ(-45deg) translateY(-12px);
+<style lang="scss">
+.explore .grid-item img {
+  position: absolute;
+  height: 60px;
+  width: auto;
+  transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-24px)
+    translateZ(8px);
+}
+
+.grid-item img {
+  width: 100%;
+  pointer-events: none;
+}
+
+.explore .grid-item .house {
+  height: 30px;
+  transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-8px)
+    translateZ(8px);
 }
 </style>

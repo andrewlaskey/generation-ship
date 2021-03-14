@@ -1,6 +1,11 @@
 <template>
   <div class="perspective">
-    <div class="wrapper" :style="wrapperGridStyle">
+    <div class="bubble" v-show="explore"></div>
+    <div
+      class="wrapper"
+      :style="wrapperGridStyle"
+      :class="{ explore: explore }"
+    >
       <div
         v-for="(gridItem, index) in grid"
         :key="index"
@@ -20,15 +25,17 @@
         :disabled="gameOver"
         @click="selectType(option, i)"
       >
-        <span v-if="option === 't'">🌱</span>
-        <span v-if="option === 'T'">🌳</span>
-        <span v-if="option === 'h'">🏠</span>
-        <span v-if="option === 'P'">🔋</span>
-        <span v-if="option === 'F'">🌾</span>
+        <img v-if="option === 't'" src="../assets/tree.png" />
+        <img v-if="option === 'h'" src="../assets/house.png" />
+        <img v-if="option === 'P'" src="../assets/power.png" />
+        <img v-if="option === 'F'" src="../assets/farm.png" />
       </button>
     </div>
     <div>
       <button @click="next" :disabled="!played || gameOver">Next</button>
+      <button @click="explore = !explore">
+        <img src="../assets/3d_rotation.svg" />
+      </button>
     </div>
   </div>
   <div>
@@ -79,6 +86,7 @@ export default {
     const gameOver = ref(false)
     const gameOverMessage = ref('')
     const years = ref(50)
+    const explore = ref(false)
 
     const population = computed(() => {
       return grid.value.reduce((total, item) => {
@@ -166,6 +174,7 @@ export default {
       years,
       wrapperGridStyle,
       points,
+      explore,
     }
   },
   methods: {
@@ -510,17 +519,36 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 // .perspective {
 //   // perspective: 1200px;
 // }
 
+.explore.wrapper {
+  transform: rotateX(55deg) rotateZ(45deg);
+  transform-style: preserve-3d;
+
+  div {
+    background-color: #eaad3e;
+    border: 1px dashed #172122;
+  }
+}
+
+.bubble {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-top: 1px solid white;
+  position: absolute;
+  top: 0;
+  left: -20%;
+  right: -22%;
+  height: 76%;
+}
+
 .wrapper {
   display: grid;
   padding-bottom: 1rem;
-  // For future isometric
-  // transform: rotateX(55deg) rotateZ(45deg);
-  // transform-style: preserve-3d;
+  transition: transform 0.25s ease;
 
   div {
     display: flex;
@@ -546,13 +574,22 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
 }
 
-button {
+.actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 5px;
   padding-left: 10px;
   padding-right: 10px;
   height: 2rem;
+  line-height: 2rem;
   background-color: #f1f0ed;
   border: none;
   border-radius: 3px;
@@ -571,5 +608,11 @@ button {
   &:last-child {
     margin-right: 0;
   }
+}
+
+.actions button img {
+  width: 24px;
+  filter: grayscale(1) brightness(0.5);
+  pointer-events: none;
 }
 </style>

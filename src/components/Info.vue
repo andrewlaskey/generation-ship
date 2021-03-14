@@ -9,29 +9,35 @@
         live out their lives in this pocket ecosystem as it travels through the
         vastness of space.
       </p>
-      <dl>
-        <dt>🌱</dt>
-        <dd>
+      <div class="info-section">
+        <img src="../assets/tree.png" />
+        <p>
           Trees grow on their own but are sensitive to overpopulation.<br />Grow
           trees to increase the ecological health of the ship. You'll need
           healthy biodiversity to colonize the destination planet.
-        </dd>
-        <dt>🏠</dt>
-        <dd>
+        </p>
+      </div>
+      <div class="info-section">
+        <img src="../assets/house.png" />
+        <p>
           People need farms for food and trees for oxygen. Bigger settlements
           need power.<br />Maintain the human population for the 50 light year
           journey.
-        </dd>
-        <dt>🌾</dt>
-        <dd>
+        </p>
+      </div>
+      <div class="info-section">
+        <img src="../assets/farm.png" />
+        <p>
           Farms can be ruined by wild overgrowth and overconsumption by people.
-        </dd>
-        <dt>🔋</dt>
-        <dd>
+        </p>
+      </div>
+      <div class="info-section">
+        <img src="../assets/power.png" />
+        <p>
           Power stations can be overloaded by too many nearby power stations or
           drained by overuse.
-        </dd>
-      </dl>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -72,5 +78,24 @@ export default {
   color: #314e52;
   max-width: 300px;
   overflow: scroll;
+}
+
+img {
+  width: 50px;
+}
+
+dt {
+  float: left;
+}
+
+.info-section {
+  display: flex;
+  align-items: flex-start;
+
+  img {
+    margin-right: 15px;
+    width: 50px;
+    height: auto;
+  }
 }
 </style>
