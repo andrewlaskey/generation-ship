@@ -1,6 +1,7 @@
 <template>
   <div class="perspective">
     <div class="bubble" v-show="explore"></div>
+    <div class="ship-bottom" v-show="explore"></div>
     <div
       class="wrapper"
       :style="wrapperGridStyle"
@@ -529,7 +530,7 @@ export default {
   transform-style: preserve-3d;
 
   div {
-    background-color: #eaad3e;
+    background-color: #d8f1bc;
     border: 1px dashed #172122;
   }
 }
@@ -585,10 +586,10 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 2rem;
+  margin-right: 8px;
+  padding-left: 14px;
+  padding-right: 14px;
+  height: 2.5rem;
   line-height: 2rem;
   background-color: #f1f0ed;
   border: none;
