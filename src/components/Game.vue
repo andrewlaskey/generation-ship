@@ -586,9 +586,9 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 8px;
-  padding-left: 14px;
-  padding-right: 14px;
+  margin-right: 5px;
+  padding-left: 12px;
+  padding-right: 12px;
   height: 2.5rem;
   line-height: 2rem;
   background-color: #f1f0ed;

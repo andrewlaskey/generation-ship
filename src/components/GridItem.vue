@@ -1,8 +1,9 @@
 <template>
-  <div class="grid-item">
+  <div class="grid-item" :class="{ 'is-flipped': flip }">
     <img v-if="type === 't'" src="images/tree.png" class="tree" />
     <img v-if="type === 'T'" src="images/trees.png" class="trees" />
     <img v-if="type === 'F'" src="images/farm.png" class="farm" />
+    <img v-if="type === 'F'" src="images/farm.png" class="farm explore-only" />
     <img v-if="type === 'P'" src="images/power.png" class="power" />
     <img v-if="type === 'h'" src="images/house.png" class="house" />
     <img v-if="type === 'V'" src="images/town.png" class="village" />
@@ -11,7 +12,7 @@
 </template>
 
 <script>
-import { toRefs, computed } from 'vue'
+import { ref, toRefs, computed } from 'vue'
 export default {
   props: {
     index: {
@@ -25,11 +26,13 @@ export default {
   },
   setup(props) {
     const { grid, index } = toRefs(props)
+    const flip = ref(Math.random() < 0.5)
 
     const type = computed(() => grid.value[index.value])
 
     return {
       type,
+      flip,
     }
   },
 }
@@ -56,8 +59,47 @@ export default {
 }
 
 .explore .grid-item .city {
-  height: 90px;
-  transform: rotateX(315deg) rotate(323deg) rotateY(31deg) translateY(-35px)
+  height: 65px;
+}
+
+.explore .grid-item .tree {
+  height: 46px;
+  transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-16px)
     translateZ(8px);
+}
+
+.explore .grid-item.is-flipped .tree {
+  transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-16px)
+    translateZ(8px) scaleX(-1);
+}
+
+.explore .grid-item.is-flipped .trees {
+  transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-24px)
+    translateZ(8px) scaleX(-1);
+}
+
+.explore .grid-item .farm {
+  height: 46px;
+  transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-16px)
+    translateZ(8px) translateX(-6px);
+}
+
+.explore .grid-item.is-flipped .farm {
+  transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-16px)
+    translateZ(8px) translateX(-6px) scaleX(-1);
+}
+
+.farm.explore-only {
+  display: none;
+}
+
+.explore .grid-item .farm.explore-only {
+  display: block;
+  height: 46px;
+
+  &:last-child {
+    transform: rotateX(315deg) rotateZ(323deg) rotateY(31deg) translateY(-3px)
+      translateZ(14px) translateX(7px);
+  }
 }
 </style>
